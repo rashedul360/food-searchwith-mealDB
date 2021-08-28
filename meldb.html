@@ -37,7 +37,15 @@
       </button>
     </div>
     <!-- search result section -->
-    <div id="more-add"></div>
+    <div>
+      <div class="text-center" id="spinner-control">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <h4 id="alert" class="text-center text-danger" style="display: none"></h4>
+      <div id="more-add"></div>
+    </div>
     <div id="meal-search-add" class="row row-cols-1 row-cols-md-3 g-4"></div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"

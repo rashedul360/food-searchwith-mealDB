@@ -1,16 +1,34 @@
+const alertText = document.getElementById("alert");
 const searchFood = () => {
   const inputField = document.getElementById("food-search-input");
   const inputText = inputField.value;
   inputField.value = "";
-  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputText}`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => displayFood(data.meals));
+  if (inputText === "") {
+    alertText.style.display = "block";
+    alertText.innerText = "please write something";
+  } else {
+    alertText.style.display = "none";
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputText}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => displayFood(data.meals));
+    spinnerControl("food-search-input", "keydown", "block");
+    spinnerControl("food-search-input", "keyup", "none");
+  }
+};
+
+const spinnerControl = (idName, eventMethod, DoMethod) => {
+  document.getElementById(idName).addEventListener(eventMethod, function () {
+    document.getElementById("spinner-control").style.display = DoMethod;
+  });
 };
 
 const displayFood = (meals) => {
   const mealSearchAdd = document.getElementById("meal-search-add");
-  mealSearchAdd.innerHTML = "";
+  //   mealSearchAdd.innerHTML = "";
+  mealSearchAdd.textContent = "";
+  document.getElementById("spinner-control").style.display = "none";
+
   meals.forEach((meal) => {
     // console.log(meal);
     const div = document.createElement("div");
@@ -25,7 +43,6 @@ const displayFood = (meals) => {
         lead-in to additional content. This content is a little bit
         longer.
       </p>
-	  <button class="btn btn-primary">Buy now</button>
     </div>
   </div>
     `;
